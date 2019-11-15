@@ -51,3 +51,4 @@ while true; do
 		xterm -e "$mdk $mdk_interface d -b bl.txt -c $mdk_channel" &
 	fi
 done
+#zart_pid=$(<zart_pid.txt) && kill -SIGTERM -- -$zart_pid
