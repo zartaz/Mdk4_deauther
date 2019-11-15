@@ -5,7 +5,7 @@ pkill xterm
 pkill mdk
 pkill NetworkManager
 pkill wpa_supplicant
-rm ./*.csv bl.txt > /dev/null 2>&1
+rm ./*.csv bl.txt mdk_chan.txt > /dev/null 2>&1
 airmon-ng stop wlan0 > /dev/null 2>&1
 airmon-ng stop wlan1 > /dev/null 2>&1
 airmon-ng stop wlan2 > /dev/null 2>&1
